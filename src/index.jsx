@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader';
 
-import image1 from './assets/images/image1.jpg';
-import image2 from './assets/images/image2.png';
-
 import './index.scss';
+import './assets/bootstrap.min.css';
 
-import 'core-js/stable';
+import "core-js/stable";
 import 'regenerator-runtime/runtime';
+import AppHeader from './components/app-header';
+import AppRendomBird from './components/app-rendom-bird';
+import AppBirdList from './components/app-bird-list';
+import AppBirdCard from './components/app-bird-card';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,31 +19,29 @@ class App extends React.Component {
     this.state = { active: false };
   }
 
-  toggleActive = () => {
-    this.setState(prevState => ({ active: !prevState.active }));
-  };
-
   render() {
-    const { name } = this.props;
     const { active } = this.state;
     return (
       <>
-        <button className="test" type="button" onClick={this.toggleActive}>
-          Hello {name}! Press to toggle image
-        </button>
-        <div>
-          <img  width="300" src={active ? image1 : image2} alt="cat" />
-        </div>
+        <AppHeader />
+        <AppRendomBird/>
+          <div className="row mb2">
+              <div className="col-md-6">
+                  <AppBirdList/>
+              </div>
+              <div className="col-md-6">
+                  <AppBirdCard/>
+                  {active}
+              </div>
+              <button  type='button' className="btn btn-next">Next Level</button>
+          </div>
       </>
     );
   }
 }
 
-App.propTypes = {
-  name: PropTypes.string.isRequired,
-};
 
 const AppWithHot = hot(module)(App);
 
 const mountNode = document.getElementById('app');
-ReactDOM.render(<AppWithHot name="Jane" />, mountNode);
+ReactDOM.render(<AppWithHot />, mountNode);
