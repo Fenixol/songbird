@@ -8,6 +8,7 @@ import './assets/bootstrap.min.css';
 
 import "core-js/stable";
 import 'regenerator-runtime/runtime';
+import birdsData from './birds';
 import AppHeader from './components/app-header';
 import AppRendomBird from './components/app-rendom-bird';
 import AppBirdList from './components/app-bird-list';
@@ -17,14 +18,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        active: false,gi
-        score: 3
-        // activeGroup: 1
+        active: false,
+        score: 3,
+        group: 0,
+        bird: this.rendBird(birdsData[0])
     };
   }
 
+  rendBird = (birds) => {
+      const randomBird = birds[Math.floor(Math.random() * 6)];
+      this.setState({
+          bird: randomBird
+      });
+      return randomBird;
+  }
+
   render() {
-    const { active, score } = this.state;
+    const { active, score, group, bird } = this.state;
+    // const randBirdsGroup = birdsData[group];
     const birdsGroup = [
         {groupName : 'Разминка', active: false,  id:1},
         {groupName: 'Воробьиные', active: false,  id:2},
@@ -32,18 +43,19 @@ class App extends React.Component {
         {groupName: 'Певчие птицы', active: true,  id:4},
         {groupName: 'Хищные птицы', active: false,  id:5},
         {groupName: 'Морские птицы', active: false,  id:6}
-    ]
+    ];
+
     return (
       <>
+          {group}
         <AppHeader  score={ score } birdsGroup={ birdsGroup }/>
-        <AppRendomBird/>
+        <AppRendomBird bird={bird}/>
           <div className="row mb2">
               <div className="col-md-6">
                   <AppBirdList/>
               </div>
               <div className="col-md-6">
-                  <AppBirdCard/>
-                  {active}
+                  <AppBirdCard bird={bird} active={active}/>
               </div>
               <button  type='button' className="btn btn-next">Next Level</button>
           </div>
