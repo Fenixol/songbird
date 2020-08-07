@@ -1,23 +1,47 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './app-header.css';
 
-const AppHeader = () => {
+const AppHeader = ({ score = 'wwerwer', birdsGroup }) => {
+    const groupBirdsList = birdsGroup.map(( item ) =>{
+        let classNames = 'page-item';
+        if (item.active) {
+            classNames += ' active';
+        }
+        return (
+            <li className={ classNames } key={ item.id }>
+                <a className="page-link" href="/#">{ item.groupName }</a>
+            </li>
+        )
+    });
+
   return (
       <div className="header d-flex">
           <div className="top-panel d-flex">
               <div className="logo"/>
-              <h5>Score: <span className="score">0</span></h5>
+              <h5>Score: <span className="score">{ score }</span></h5>
           </div>
           <ul className="pagination">
-              <li className="page-item active"><a className="page-link" href="/#">Разминка</a></li>
-              <li className="page-item"><a className="page-link" href="/#">Воробьиные</a></li>
-              <li className="page-item"><a className="page-link" href="/#">Лесные птицы</a></li>
-              <li className="page-item"><a className="page-link" href="/#">Певчие птицы</a></li>
-              <li className="page-item"><a className="page-link" href="/#">Хищные птицы</a></li>
-              <li className="page-item"><a className="page-link" href="/#">Морские птицы</a></li>
+              { groupBirdsList }
           </ul>
       </div>
   );
 };
 
+AppHeader.propTypes = {
+    score:PropTypes.string,
+    birdsGroup:PropTypes.arrayOf({
+        groupName: PropTypes.string,
+        active: PropTypes.bool,
+        id: PropTypes.number
+    })
+};
+AppHeader.defaultProps = {
+    score: '',
+    birdsGroup: [
+        {groupName : 'Разминка', active: true, id:1}
+    ]
+};
+
 export default AppHeader;
+
