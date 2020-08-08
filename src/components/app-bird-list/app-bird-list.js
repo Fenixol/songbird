@@ -17,7 +17,7 @@ export default class AppBirdList extends Component{
             const classNames = 'list-group-item';
 
             return (
-                <li className={ classNames } onClick={ () =>{onCheckBird(item.id)} } role='presentation' key={ item.id }>
+                <li className={ classNames } onClick={() =>{onCheckBird(item.id)}  } role='presentation' key={ item.id }>
                     <span className="li-btn"/>
                     { item.name }{active}
                 </li>

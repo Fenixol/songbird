@@ -1,29 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './app-bird-card.css';
 
-import birdImage from './bird.jpg';
+const AppBirdCard = ({ bird, activeLevel }) => {
 
-const AppBirdCard = () => {
-  return (
-      <div className="bird-details card">
-          <p className="instruction d-none">
-              <span>Послушайте плеер.</span><span>Выберите птицу из списка</span>
-          </p>
-          <div className="card-body">
-              <img className="bird-image" src={birdImage} alt="Ворон"/>
-              <ul className="list-group list-group-flush">
-                  <li className="list-group-item"><h4>Ворон</h4></li>
-                  <li className="list-group-item"><span>Corvus corax</span></li>
-                  <li className="list-group-item">
-                      <div className="audio-player">
-                          ***
-                      </div>
-                  </li>
-              </ul>
-          </div>
-          <span className="bird-description">Ворон – крупная птица. Длина тела достигает 70 сантиметров, размах крыльев – до полутора метров. Вороны населяют окрестности Тауэра. В Англии бытует поверье, что в день, когда черные вороны улетят от Тауэра, монархия рухнет.</span>
-      </div>
-  );
+    if( { activeLevel } === true ){
+          return (
+              <div className="bird-details card">
+                  <div className="card-body">
+                      <img className="bird-image" src={ bird.image } alt="Ворон"/>
+                      <ul className="list-group list-group-flush">
+                          <li className="list-group-item"><h4>{ bird.name }</h4></li>
+                          <li className="list-group-item"><span>{ bird.species }</span></li>
+                          <li className="list-group-item">
+                              <div className="audio-player">
+                                  ***
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+                  <span className="bird-description">{ bird.description }</span>
+              </div>
+          );
+    }
+
+    return (
+            <div className="bird-details card">
+                <p className="instruction">
+                    <span>Послушайте плеер.</span>
+                    <span>Выберите птицу из списка</span>
+                </p>
+            </div>
+    )
+};
+
+AppBirdCard.propTypes = {
+    activeLevel: PropTypes.bool.isRequired,
+    bird:PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 export default AppBirdCard;

@@ -18,7 +18,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        active: false,
+        activeLevel: false,
         score: 0,
         scoreGroup: 5,
         group: 0,
@@ -30,7 +30,9 @@ class App extends React.Component {
       const { bird, score, scoreGroup } = this.state;
       if(bird.id === id){
           this.setState({
-              score: ( score + scoreGroup)
+              score: ( score + scoreGroup),
+              scoreGroup: 5,
+              activeLevel: true
           })
       }else{
           this.setState({
@@ -39,8 +41,18 @@ class App extends React.Component {
       }
   }
 
+  onNextLevel = () => {
+      const { group, activeLevel } = this.state;
+      if( group < 5 && activeLevel === true){
+          this.setState({
+              group: group + 1,
+              activeLevel: false
+          });
+      }
+  }
+
   rendBird = (birds) => {
-      const randomBird = birds[Math.floor(Math.random() * 6)];
+      const randomBird = birds[Math.floor(Math.random() * 5)];
       this.setState({
           bird: randomBird
       });
@@ -48,7 +60,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { active, score, group, bird } = this.state;
+    const { activeLevel, score, group, bird } = this.state;
     const randBirdsGroup = birdsData[group];
     const birdsGroup = [
         {groupName : 'Разминка', active: false,  id:1},
@@ -66,16 +78,16 @@ class App extends React.Component {
             birdsGroup = { birdsGroup }
             group = { group }
         />
-        <AppRendomBird bird={ bird}/>
-          <div className="row mb2">
+        <AppRendomBird bird={ bird }/>
+        <div className="row mb2">
               <div className="col-md-6">
                   <AppBirdList  randBirdsGroup={randBirdsGroup} onCheckBird={this.onCheckBird}/>
               </div>
               <div className="col-md-6">
-                  <AppBirdCard bird={bird} active={active}/>
+                  <AppBirdCard bird={ bird } activeLevel={ activeLevel }/>
               </div>
-              <button  type='button' className="btn btn-next">Next Level</button>
-          </div>
+              <button  type='button' onClick={() =>{this.onNextLevel()}} className="btn btn-next">Next Level</button>
+        </div>
       </>
     );
   }
