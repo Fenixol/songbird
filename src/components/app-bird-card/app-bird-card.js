@@ -14,7 +14,7 @@ const AppBirdCard = ({ bird, activeLevel }) => {
                           <li className="list-group-item"><span>{ bird.species }</span></li>
                           <li className="list-group-item">
                               <div className="audio-player">
-                                  ***
+                                  ****
                               </div>
                           </li>
                       </ul>
