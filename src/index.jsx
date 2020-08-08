@@ -19,10 +19,24 @@ class App extends React.Component {
     super(props);
     this.state = {
         active: false,
-        score: 3,
+        score: 0,
+        scoreGroup: 5,
         group: 0,
         bird: this.rendBird(birdsData[0])
     };
+  }
+
+  onCheckBird = (id) => {
+      const { bird, score, scoreGroup } = this.state;
+      if(bird.id === id){
+          this.setState({
+              score: ( score + scoreGroup)
+          })
+      }else{
+          this.setState({
+              scoreGroup: scoreGroup - 1
+          })
+      }
   }
 
   rendBird = (birds) => {
@@ -35,7 +49,7 @@ class App extends React.Component {
 
   render() {
     const { active, score, group, bird } = this.state;
-    // const randBirdsGroup = birdsData[group];
+    const randBirdsGroup = birdsData[group];
     const birdsGroup = [
         {groupName : 'Разминка', active: false,  id:1},
         {groupName: 'Воробьиные', active: false,  id:2},
@@ -47,12 +61,15 @@ class App extends React.Component {
 
     return (
       <>
-          {group}
-        <AppHeader  score={ score } birdsGroup={ birdsGroup }/>
-        <AppRendomBird bird={bird}/>
+        <AppHeader
+            score = { score }
+            birdsGroup = { birdsGroup }
+            group = { group }
+        />
+        <AppRendomBird bird={ bird}/>
           <div className="row mb2">
               <div className="col-md-6">
-                  <AppBirdList/>
+                  <AppBirdList  randBirdsGroup={randBirdsGroup} onCheckBird={this.onCheckBird}/>
               </div>
               <div className="col-md-6">
                   <AppBirdCard bird={bird} active={active}/>

@@ -29,18 +29,11 @@ const AppHeader = ({ score = 'wwerwer', birdsGroup }) => {
 };
 
 AppHeader.propTypes = {
-    score:PropTypes.string,
-    birdsGroup:PropTypes.arrayOf({
-        groupName: PropTypes.string,
-        active: PropTypes.bool,
-        id: PropTypes.number
-    })
+    score:PropTypes.number,
+    birdsGroup:PropTypes.arrayOf(PropTypes.object).isRequired
 };
 AppHeader.defaultProps = {
-    score: '',
-    birdsGroup: [
-        {groupName : 'Разминка', active: true, id:1}
-    ]
+    score: ''
 };
 
 export default AppHeader;
