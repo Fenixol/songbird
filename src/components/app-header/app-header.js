@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './app-header.css';
 
-const AppHeader = ({ score = 'wwerwer', birdsGroup }) => {
+const AppHeader = ({ score , birdsGroup, group }) => {
     const groupBirdsList = birdsGroup.map(( item ) =>{
         let classNames = 'page-item';
-        if (item.active) {
+        if (item.id === group) {
             classNames += ' active';
         }
         return (
@@ -29,12 +29,11 @@ const AppHeader = ({ score = 'wwerwer', birdsGroup }) => {
 };
 
 AppHeader.propTypes = {
-    score:PropTypes.number,
+    score:PropTypes.number.isRequired,
+    group:PropTypes.number.isRequired,
     birdsGroup:PropTypes.arrayOf(PropTypes.object).isRequired
 };
-AppHeader.defaultProps = {
-    score: ''
-};
+
 
 export default AppHeader;
 

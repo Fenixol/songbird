@@ -73,12 +73,12 @@ class App extends React.Component {
     const { activeLevel, score, group, bird, currentBird } = this.state;
     const randBirdsGroup = birdsData[group];
     const birdsGroup = [
-        {groupName : 'Разминка', active: false,  id:1},
-        {groupName: 'Воробьиные', active: false,  id:2},
-        {groupName: 'Лесные птицы', active: false,  id:3},
-        {groupName: 'Певчие птицы', active: true,  id:4},
-        {groupName: 'Хищные птицы', active: false,  id:5},
-        {groupName: 'Морские птицы', active: false,  id:6}
+        {groupName: 'Разминка',  id:0},
+        {groupName: 'Воробьиные', id:1},
+        {groupName: 'Лесные птицы', id:2},
+        {groupName: 'Певчие птицы', id:3},
+        {groupName: 'Хищные птицы', id:4},
+        {groupName: 'Морские птицы', id:5}
     ];
 
     let classNames = 'btn';
