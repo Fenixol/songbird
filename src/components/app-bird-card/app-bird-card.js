@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './app-bird-card.css';
 
-const AppBirdCard = ({ bird, activeLevel }) => {
+const AppBirdCard = ({ bird }) => {
 
-    if( { activeLevel } === true ){
+    if( Object.keys(bird).length !== 0){
           return (
               <div className="bird-details card">
                   <div className="card-body">
-                      <img className="bird-image" src={ bird.image } alt="Ворон"/>
+                      <img className="bird-image" src={ bird.image } alt={ bird.name }/>
                       <ul className="list-group list-group-flush">
                           <li className="list-group-item"><h4>{ bird.name }</h4></li>
                           <li className="list-group-item"><span>{ bird.species }</span></li>
                           <li className="list-group-item">
                               <div className="audio-player">
-                                  ****
+                                  ***
                               </div>
                           </li>
                       </ul>
@@ -35,7 +35,7 @@ const AppBirdCard = ({ bird, activeLevel }) => {
 };
 
 AppBirdCard.propTypes = {
-    activeLevel: PropTypes.bool.isRequired,
+    // activeLevel: PropTypes.bool.isRequired,
     bird:PropTypes.objectOf(PropTypes.any).isRequired
 };
 

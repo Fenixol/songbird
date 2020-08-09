@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader';
-
-import './index.scss';
 import './assets/bootstrap.min.css';
+import './index.scss';
 
 import "core-js/stable";
 import 'regenerator-runtime/runtime';
@@ -22,7 +21,8 @@ class App extends React.Component {
         score: 0,
         scoreGroup: 5,
         group: 0,
-        bird: this.rendBird(birdsData[0])
+        bird: this.rendBird(birdsData[0]),
+        currentBird: {}
     };
   }
 
@@ -36,9 +36,18 @@ class App extends React.Component {
           })
       }else{
           this.setState({
-              scoreGroup: scoreGroup - 1
+              scoreGroup: scoreGroup - 1,
+              currentBird: this.findBird(id)
           })
       }
+  }
+
+  findBird = (id) => {
+      const { group } = this.state;
+      const currentBird = birdsData[group].find((element) => {
+          return element.id === id;
+      })
+      return currentBird
   }
 
   onNextLevel = () => {
@@ -46,7 +55,8 @@ class App extends React.Component {
       if( group < 5 && activeLevel === true){
           this.setState({
               group: group + 1,
-              activeLevel: false
+              activeLevel: false,
+              currentBird: {}
           });
       }
   }
@@ -60,7 +70,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { activeLevel, score, group, bird } = this.state;
+    const { activeLevel, score, group, bird, currentBird } = this.state;
     const randBirdsGroup = birdsData[group];
     const birdsGroup = [
         {groupName : 'Разминка', active: false,  id:1},
@@ -70,6 +80,11 @@ class App extends React.Component {
         {groupName: 'Хищные птицы', active: false,  id:5},
         {groupName: 'Морские птицы', active: false,  id:6}
     ];
+
+    let classNames = 'btn';
+    if(activeLevel){
+        classNames += ' btn-next'
+    }
 
     return (
       <>
@@ -84,9 +99,9 @@ class App extends React.Component {
                   <AppBirdList  randBirdsGroup={randBirdsGroup} onCheckBird={this.onCheckBird}/>
               </div>
               <div className="col-md-6">
-                  <AppBirdCard bird={ bird } activeLevel={ activeLevel }/>
+                  <AppBirdCard bird={ currentBird } activeLevel={ activeLevel }/>
               </div>
-              <button  type='button' onClick={() =>{this.onNextLevel()}} className="btn btn-next">Next Level</button>
+              <button  type='button' onClick={() =>{this.onNextLevel()}} className={classNames}>Next Level</button>
         </div>
       </>
     );
