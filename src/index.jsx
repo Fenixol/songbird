@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader';
 import './assets/bootstrap.min.css';
 import './index.scss';
-
 import "core-js/stable";
 import 'regenerator-runtime/runtime';
 import birdsData from './birds';
@@ -12,6 +10,8 @@ import AppHeader from './components/app-header';
 import AppRendBird from './components/app-rendom-bird';
 import AppBirdList from './components/app-bird-list';
 import AppBirdCard from './components/app-bird-card';
+import winSong from '../public/media/win.a1e9e8b6.mp3';
+import errorSong from '../public/media/error.165166d5.mp3';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +28,8 @@ class App extends React.Component {
 
   onCheckBird = (id) => {
       const { bird, score, scoreGroup } = this.state;
+      const winBird = new Audio(winSong);
+      const errorBird = new Audio(errorSong);
       if(bird.id === id){
           this.setState({
               score: ( score + scoreGroup),
@@ -35,11 +37,13 @@ class App extends React.Component {
               activeLevel: true,
               currentBird: this.findBird(id)
           })
+          winBird.play();
       }else{
           this.setState({
               scoreGroup: scoreGroup - 1,
               currentBird: this.findBird(id)
           })
+          errorBird.play();
       }
   }
 
@@ -55,9 +59,10 @@ class App extends React.Component {
       const { group, activeLevel } = this.state;
       if( group < 5 && activeLevel === true){
           this.setState({
+              bird: this.rendBird(birdsData[group + 1]),
               group: group + 1,
               activeLevel: false,
-              currentBird: {}
+              currentBird: {},
           });
       }
   }

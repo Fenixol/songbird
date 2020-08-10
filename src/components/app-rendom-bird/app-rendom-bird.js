@@ -22,7 +22,6 @@ const AppRendBird = ({ bird, activeLevel }) => {
                   <li className="list-group-item"><h3> { nameBird } </h3></li>
                   <li className="list-group-item">
                       <AudioPlayer
-                          autoPlay
                           src={ bird.audio }
                           showJumpControls={false}
                           layout="horizontal-reverse"

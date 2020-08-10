@@ -18,7 +18,6 @@ const AppBirdCard = ({ bird }) => {
                           <li className="list-group-item">
                               <div className="audio-player">
                                   <AudioPlayer
-                                      autoPlay
                                       src={ bird.audio }
                                       showJumpControls={false}
                                       layout="horizontal-reverse"
