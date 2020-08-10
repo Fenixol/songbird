@@ -9,7 +9,7 @@ import "core-js/stable";
 import 'regenerator-runtime/runtime';
 import birdsData from './birds';
 import AppHeader from './components/app-header';
-import AppRendomBird from './components/app-rendom-bird';
+import AppRendBird from './components/app-rendom-bird';
 import AppBirdList from './components/app-bird-list';
 import AppBirdCard from './components/app-bird-card';
 
@@ -32,7 +32,8 @@ class App extends React.Component {
           this.setState({
               score: ( score + scoreGroup),
               scoreGroup: 5,
-              activeLevel: true
+              activeLevel: true,
+              currentBird: this.findBird(id)
           })
       }else{
           this.setState({
@@ -93,15 +94,27 @@ class App extends React.Component {
             birdsGroup = { birdsGroup }
             group = { group }
         />
-        <AppRendomBird bird={ bird }/>
+        <AppRendBird
+            bird={ bird }
+            activeLevel={ activeLevel }
+        />
         <div className="row mb2">
               <div className="col-md-6">
-                  <AppBirdList  randBirdsGroup={randBirdsGroup} onCheckBird={this.onCheckBird}/>
+                  <AppBirdList
+                      randBirdsGroup={randBirdsGroup}
+                      onCheckBird={this.onCheckBird}
+                  />
               </div>
               <div className="col-md-6">
-                  <AppBirdCard bird={ currentBird } activeLevel={ activeLevel }/>
+                  <AppBirdCard
+                      bird={ currentBird }
+                      activeLevel={ activeLevel }
+                  />
               </div>
-              <button  type='button' onClick={() =>{this.onNextLevel()}} className={classNames}>Next Level</button>
+              <button
+                  type='button' onClick={() =>{this.onNextLevel()}}
+                  className={classNames}>Next Level
+              </button>
         </div>
       </>
     );
