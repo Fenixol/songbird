@@ -35,7 +35,7 @@ class App extends React.Component {
               score: ( score + scoreGroup),
               scoreGroup: 5,
               activeLevel: true,
-              currentBird: this.findBird(id)
+              currentBird: this.findBird(id),
           })
           winBird.play();
       }else{
@@ -44,7 +44,9 @@ class App extends React.Component {
               currentBird: this.findBird(id)
           })
           errorBird.play();
+          return false;
       }
+      return true;
   }
 
   findBird = (id) => {
@@ -62,7 +64,7 @@ class App extends React.Component {
               bird: this.rendBird(birdsData[group + 1]),
               group: group + 1,
               activeLevel: false,
-              currentBird: {},
+              currentBird: {}
           });
       }
   }
@@ -108,6 +110,7 @@ class App extends React.Component {
                   <AppBirdList
                       randBirdsGroup={randBirdsGroup}
                       onCheckBird={this.onCheckBird}
+                      group={ group }
                   />
               </div>
               <div className="col-md-6">

@@ -1,40 +1,35 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import AppBirdListItem from '../app-bird-list-item'
 import './app-bird-list.css';
 
-export default class AppBirdList extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            active: false
-        };
-    };
+const AppBirdList = ( {randBirdsGroup, onCheckBird, group} ) =>{
 
-    render () {
-        const { active } = this.state;
-        const { randBirdsGroup, onCheckBird }   = this.props;
-        const birdsList  = randBirdsGroup.map(( item ) =>{
-            const classNames = 'list-group-item';
-
-            return (
-                <li className={ classNames } onClick={() =>{onCheckBird(item.id)}  } role='presentation' key={ item.id }>
-                    <span className="li-btn"/>
-                    { item.name }{active}
-                </li>
-            )
-        });
-
+    const birdsList  = randBirdsGroup.map(( item ) =>{
         return (
-            <ul className="item-list list-group">
-                { birdsList }
-            </ul>
+            <AppBirdListItem
+                onCheckBird={onCheckBird}
+                key={ item.id }
+                id={item.id}
+                name={item.name}
+                group={ group }
+            />
         )
-    }
+    });
+
+    return (
+        <ul className="item-list list-group">
+            { birdsList }
+        </ul>
+    )
+
 };
 
 AppBirdList.propTypes = {
     onCheckBird:PropTypes.func.isRequired,
+    group:PropTypes.number.isRequired,
     randBirdsGroup: PropTypes.arrayOf(
         PropTypes.object).isRequired
 };
 
+export default AppBirdList;
