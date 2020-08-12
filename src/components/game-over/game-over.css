@@ -9,7 +9,10 @@
 }
 
 .img-win {
-    width: 100%;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    height: 200px;
 }
 
 @media (max-width: 767px) {

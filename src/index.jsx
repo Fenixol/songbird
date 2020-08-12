@@ -5,6 +5,7 @@ import './assets/bootstrap.min.css';
 import './index.scss';
 import "core-js/stable";
 import 'regenerator-runtime/runtime';
+import Favicon from 'react-favicon';
 import birdsData from './birds';
 import AppHeader from './components/app-header';
 import AppRendBird from './components/app-rendom-bird';
@@ -116,6 +117,7 @@ class App extends React.Component {
     if(over){
         return (
             <>
+                <Favicon url="./favicon.ico"/>
                 <AppHeader
                     score = { score }
                     birdsGroup = { birdsGroup }
@@ -132,6 +134,7 @@ class App extends React.Component {
 
     return (
       <>
+        <Favicon url="./favicon.ico"/>
         <AppHeader
             score = { score }
             birdsGroup = { birdsGroup }
