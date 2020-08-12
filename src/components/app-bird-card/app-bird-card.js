@@ -53,7 +53,6 @@ const AppBirdCard = ({ bird }) => {
 };
 
 AppBirdCard.propTypes = {
-    // activeLevel: PropTypes.bool.isRequired,
     bird:PropTypes.objectOf(PropTypes.any).isRequired
 };
 

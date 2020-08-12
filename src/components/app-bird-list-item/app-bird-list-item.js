@@ -70,7 +70,6 @@ AppBirdListItem.propTypes = {
     onCheckBird:PropTypes.func.isRequired,
     id:PropTypes.number.isRequired,
     name:PropTypes.string.isRequired,
-    group:PropTypes.number.isRequired,
-   // success:PropTypes.bool.isRequired,
+    group:PropTypes.number.isRequired
 };
 

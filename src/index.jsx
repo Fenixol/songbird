@@ -10,6 +10,7 @@ import AppHeader from './components/app-header';
 import AppRendBird from './components/app-rendom-bird';
 import AppBirdList from './components/app-bird-list';
 import AppBirdCard from './components/app-bird-card';
+import GameOver from './components/game-over';
 import winSong from '../public/media/win.a1e9e8b6.mp3';
 import errorSong from '../public/media/error.165166d5.mp3';
 
@@ -17,12 +18,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
         activeLevel: false,
         score: 0,
         scoreGroup: 5,
         group: 0,
-        bird: this.rendBird(birdsData[0]),
-        currentBird: {}
+        bird: (birdsData[0])[Math.floor(Math.random() * 5)],
+        currentBird: {},
+        over: false
     };
   }
 
@@ -66,7 +69,23 @@ class App extends React.Component {
               activeLevel: false,
               currentBird: {}
           });
+      }else{
+          this.setState({
+              over: true
+          });
       }
+  }
+
+  newGame = () => {
+      this.setState({
+          activeLevel: false,
+          score: 0,
+          scoreGroup: 5,
+          group: 0,
+          bird: this.rendBird(birdsData[0]),
+          currentBird: {},
+          over: false
+      });
   }
 
   rendBird = (birds) => {
@@ -78,7 +97,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { activeLevel, score, group, bird, currentBird } = this.state;
+    const { activeLevel, score, group, bird, currentBird, over } = this.state;
     const randBirdsGroup = birdsData[group];
     const birdsGroup = [
         {groupName: 'Разминка',  id:0},
@@ -94,6 +113,23 @@ class App extends React.Component {
         classNames += ' btn-next'
     }
 
+    if(over){
+        return (
+            <>
+                <AppHeader
+                    score = { score }
+                    birdsGroup = { birdsGroup }
+                    group = { group }
+                />
+
+                <GameOver
+                    score = { score }
+                    newGame = { this.newGame }
+                />
+            </>
+        )
+    }
+
     return (
       <>
         <AppHeader
@@ -101,6 +137,7 @@ class App extends React.Component {
             birdsGroup = { birdsGroup }
             group = { group }
         />
+
         <AppRendBird
             bird={ bird }
             activeLevel={ activeLevel }
@@ -125,12 +162,14 @@ class App extends React.Component {
               </button>
         </div>
       </>
+
     );
   }
 }
 
 
 const AppWithHot = hot(module)(App);
+
 
 const mountNode = document.getElementById('app');
 ReactDOM.render(<AppWithHot />, mountNode);

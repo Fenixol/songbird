@@ -39,7 +39,7 @@ const config = env => ({
         ],
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf|mp3)$/,
+        test: /\.(woff|woff2|eot|ttf|otf|mp3|ico)$/,
         use: 'file-loader',
       },
       {
