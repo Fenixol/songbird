@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AppBirdListItem from '../app-bird-list-item'
 import './app-bird-list.css';
 
-const AppBirdList = ( {randBirdsGroup, onCheckBird, group} ) =>{
+const AppBirdList = ( {randBirdsGroup, onCheckBird, group, activeLevel} ) =>{
 
     const birdsList  = randBirdsGroup.map(( item ) =>{
         return (
@@ -13,6 +13,7 @@ const AppBirdList = ( {randBirdsGroup, onCheckBird, group} ) =>{
                 id={item.id}
                 name={item.name}
                 group={ group }
+                activeLevel = { activeLevel }
             />
         )
     });
@@ -28,6 +29,7 @@ const AppBirdList = ( {randBirdsGroup, onCheckBird, group} ) =>{
 AppBirdList.propTypes = {
     onCheckBird:PropTypes.func.isRequired,
     group:PropTypes.number.isRequired,
+    activeLevel:PropTypes.bool.isRequired,
     randBirdsGroup: PropTypes.arrayOf(
         PropTypes.object).isRequired
 };

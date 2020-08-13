@@ -12,7 +12,6 @@ export default class AppBirdListItem extends Component{
     };
 
     componentDidUpdate(previousProps) {
-        // Typical usage (don't forget to compare props):
         const { group } = this.props;
         if ( group !== previousProps.group ) {
             this.updateDate()
@@ -27,13 +26,14 @@ export default class AppBirdListItem extends Component{
     }
 
     onCheckBird = (id) => {
-        const { onCheckBird}   = this.props;
-        if(onCheckBird(id)){
+        const { onCheckBird, activeLevel}   = this.props;
+        if(onCheckBird(id) && !activeLevel){
             this.setState(() => ({
                 clicked: true,
                 active: true
             }));
-        }else{
+
+        }else if(!activeLevel) {
             this.setState(() => ({
                 clicked: true,
                 active: false
@@ -70,6 +70,7 @@ AppBirdListItem.propTypes = {
     onCheckBird:PropTypes.func.isRequired,
     id:PropTypes.number.isRequired,
     name:PropTypes.string.isRequired,
-    group:PropTypes.number.isRequired
+    group:PropTypes.number.isRequired,
+    activeLevel:PropTypes.bool.isRequired
 };
 

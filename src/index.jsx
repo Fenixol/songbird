@@ -19,38 +19,60 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
         activeLevel: false,
         score: 0,
         scoreGroup: 5,
         group: 0,
         bird: (birdsData[0])[Math.floor(Math.random() * 5)],
         currentBird: {},
-        over: false
+        over: false,
+        checkBirdsArr: []
     };
   }
 
   onCheckBird = (id) => {
-      const { bird, score, scoreGroup } = this.state;
+      const { bird, score, scoreGroup, activeLevel, checkBirdsArr } = this.state;
       const winBird = new Audio(winSong);
       const errorBird = new Audio(errorSong);
-      if(bird.id === id){
-          this.setState({
-              score: ( score + scoreGroup),
-              scoreGroup: 5,
-              activeLevel: true,
-              currentBird: this.findBird(id),
+      const clickBird =  checkBirdsArr.findIndex((el) => el === id);
+
+      if(clickBird === -1){
+          this.setState(()=>{
+              const newArr = checkBirdsArr.slice();
+              return {
+                  checkBirdsArr: newArr
+              }
           })
-          winBird.play();
-      }else{
-          this.setState({
-              scoreGroup: scoreGroup - 1,
-              currentBird: this.findBird(id)
-          })
-          errorBird.play();
-          return false;
+
+          if(bird.id === id){
+              if(!activeLevel){
+                  this.setState({
+                      score: ( score + scoreGroup),
+                      scoreGroup: 5,
+                      activeLevel: true,
+                      currentBird: this.findBird(id),
+                  })
+                  winBird.play();
+              }
+          }else{
+              if(!activeLevel){
+                  errorBird.play();
+              }
+              this.setState({
+                  scoreGroup: scoreGroup - 1,
+                  currentBird: this.findBird(id)
+              })
+
+              return false;
+          }
+          return true;
       }
-      return true;
+
+      this.setState({
+          currentBird: this.findBird(id)
+      })
+      return false;
+
   }
 
   findBird = (id) => {
@@ -68,11 +90,13 @@ class App extends React.Component {
               bird: this.rendBird(birdsData[group + 1]),
               group: group + 1,
               activeLevel: false,
-              currentBird: {}
+              currentBird: {},
+              checkBirdsArr: []
           });
-      }else{
+      } if (group === 5){
           this.setState({
-              over: true
+              over: true,
+              checkBirdsArr: []
           });
       }
   }
@@ -85,7 +109,8 @@ class App extends React.Component {
           group: 0,
           bird: this.rendBird(birdsData[0]),
           currentBird: {},
-          over: false
+          over: false,
+          checkBirdsArr: []
       });
   }
 
@@ -151,6 +176,7 @@ class App extends React.Component {
                       randBirdsGroup={randBirdsGroup}
                       onCheckBird={this.onCheckBird}
                       group={ group }
+                      activeLevel = { activeLevel }
                   />
               </div>
               <div className="col-md-6">
