@@ -182,7 +182,6 @@ class App extends React.Component {
               <div className="col-md-6">
                   <AppBirdCard
                       bird={ currentBird }
-                      activeLevel={ activeLevel }
                   />
               </div>
               <button
