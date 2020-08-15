@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import './app-bird-list-item.css';
 
 export default class AppBirdListItem extends Component{
     constructor(props) {

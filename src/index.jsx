@@ -72,7 +72,6 @@ class App extends React.Component {
           currentBird: this.findBird(id)
       })
       return false;
-
   }
 
   findBird = (id) => {
@@ -195,9 +194,7 @@ class App extends React.Component {
   }
 }
 
-
 const AppWithHot = hot(module)(App);
-
 
 const mountNode = document.getElementById('app');
 ReactDOM.render(<AppWithHot />, mountNode);

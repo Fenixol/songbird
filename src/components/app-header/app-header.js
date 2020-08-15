@@ -34,6 +34,5 @@ AppHeader.propTypes = {
     birdsGroup:PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-
 export default AppHeader;
 
