@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader';
-import './assets/bootstrap.min.css';
 import './index.scss';
 import "core-js/stable";
 import 'regenerator-runtime/runtime';
@@ -39,6 +38,7 @@ class App extends React.Component {
       if(clickBird === -1){
           this.setState(()=>{
               const newArr = checkBirdsArr.slice();
+              newArr.push(id);
               return {
                   checkBirdsArr: newArr
               }
@@ -138,6 +138,7 @@ class App extends React.Component {
         classNames += ' btn-next'
     }
 
+    console.log(`Правильный ответ: ${bird.name}`);
     if(over){
         return (
             <>

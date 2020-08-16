@@ -19,8 +19,7 @@
 
 .header ul li a {
   cursor: auto;
-
-  border-radius: 0 !important;
+  border-radius: 0;
 }
 
 .page-item .page-link {
